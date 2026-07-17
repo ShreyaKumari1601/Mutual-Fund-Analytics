@@ -1,12 +1,10 @@
-# 📊 Mutual Fund Analytics | End-to-End Data Analytics Project
+📊 Mutual Fund Analytics | End-to-End Data Analytics Project
 
 An end-to-end **Data Analytics Project** that demonstrates the complete analytics lifecycle—from understanding raw data to building an interactive Power BI dashboard. This project uses an **Indian Mutual Funds dataset** to uncover business insights through **Python, SQL, MySQL, and Power BI**.
 
 The project focuses on transforming raw financial data into meaningful business insights using industry-standard data analytics practices.
 
----
-
-## 📌 Project Overview
+📌 Project Overview
 
 The objective of this project is to analyze mutual fund schemes across different fund houses, categories, and scheme types to answer key business questions such as:
 
@@ -18,11 +16,9 @@ The objective of this project is to analyze mutual fund schemes across different
 
 The project follows a structured analytics workflow similar to real-world data analytics projects.
 
----
+ 
+🛠 Project Workflow
 
-# 🛠 Project Workflow
-
-```
 Raw Dataset
       │
       ▼
@@ -45,13 +41,10 @@ Advanced SQL Analysis
       │
       ▼
 Power BI Dashboard
-```
 
----
 
-# 📂 Project Structure
+📂 Project Structure
 
-```
 Mutual-Fund-Analytics/
 │
 ├── Data/
@@ -74,11 +67,9 @@ Mutual-Fund-Analytics/
 │   ├── Mutual_Fund_Analytics_Dashboard.png
 │
 └── README.md
-```
 
----
 
-# 📚 Technologies Used
+ 📚 Technologies Used
 
 * Python
 * Pandas
@@ -91,11 +82,9 @@ Mutual-Fund-Analytics/
 * Git
 * GitHub
 
----
+ 📈 Data Analysis Pipeline
 
-# 📈 Data Analysis Pipeline
-
-## 1️⃣ Data Understanding
+ 1️⃣ Data Understanding
 
 * Explored the dataset structure
 * Identified column names and data types
@@ -103,9 +92,7 @@ Mutual-Fund-Analytics/
 * Understood business meaning of each attribute
 * Performed initial quality assessment
 
----
-
-## 2️⃣ ETL & Data Cleaning
+ 2️⃣ ETL & Data Cleaning
 
 Performed:
 
@@ -116,9 +103,7 @@ Performed:
 * Data consistency checks
 * Clean dataset generation
 
----
-
-## 3️⃣ Exploratory Data Analysis (EDA)
+ 3️⃣ Exploratory Data Analysis (EDA)
 
 Performed detailed exploratory analysis including:
 
@@ -130,9 +115,7 @@ Performed detailed exploratory analysis including:
 * Outlier detection
 * Data visualization
 
----
-
-## 4️⃣ Feature Engineering
+ 4️⃣ Feature Engineering
 
 Created additional analytical features such as:
 
@@ -141,9 +124,7 @@ Created additional analytical features such as:
 * Aggregated analytical columns
 * Data prepared for SQL and Power BI
 
----
-
-## 5️⃣ SQL Business Analysis
+5️⃣ SQL Business Analysis
 
 Business questions answered using SQL:
 
@@ -159,9 +140,7 @@ Business questions answered using SQL:
 * Category-wise analysis
 * Scheme type analysis
 
----
-
-## 6️⃣ Advanced SQL Analysis
+6️⃣ Advanced SQL Analysis
 
 Advanced analytical queries including:
 
@@ -172,15 +151,14 @@ Advanced analytical queries including:
 * Business summary reports
 * Performance comparisons
 
----
 
-# 📊 Power BI Dashboard
+📊 Power BI Dashboard
 
 The final dashboard was designed to provide a complete business overview of the mutual fund dataset.
 
-## Dashboard Highlights
+ Dashboard Highlights
 
-### KPI Cards
+ KPI Cards
 
 * Total Schemes
 * Total Fund Houses
@@ -189,9 +167,8 @@ The final dashboard was designed to provide a complete business overview of the 
 * Highest NAV
 * Lowest NAV
 
----
 
-### Visualizations
+Visualizations
 
 * NAV Distribution
 * Scheme Category Distribution
@@ -203,9 +180,7 @@ The final dashboard was designed to provide a complete business overview of the 
 * Average NAV by Scheme Category
 * Detailed Scheme Table
 
----
-
-### Interactive Features
+Interactive Features
 
 * Fund House Slicer
 * Scheme Category Slicer
@@ -214,16 +189,12 @@ The final dashboard was designed to provide a complete business overview of the 
 * Cross-filtering
 * Interactive KPI updates
 
----
-
-# 📸 Dashboard Preview
+📸 Dashboard Preview
 
 ![Mutual Fund Analytics Dashboard]("C:\Users\shrey\OneDrive\Desktop\Mutual Fund Analytics\Mutual_Fund_Analytics_Dashboard.png")
-```
 
----
 
-# 📊 Key Business Insights
+📊 Key Business Insights
 
 * Identified the fund houses managing the highest number of mutual fund schemes.
 * Ranked schemes based on Net Asset Value (NAV).
@@ -231,9 +202,8 @@ The final dashboard was designed to provide a complete business overview of the 
 * Analyzed the distribution of schemes by category and scheme type.
 * Built an interactive dashboard to support business decision-making.
 
----
 
-# 🎯 Skills Demonstrated
+🎯 Skills Demonstrated
 
 * Data Cleaning
 * Data Transformation
@@ -248,15 +218,11 @@ The final dashboard was designed to provide a complete business overview of the 
 * Business Analytics
 * Git & GitHub
 
----
-
-# 🚀 How to Run the Project
+🚀 How to Run the Project
 
 1. Clone the repository:
 
-```bash
 git clone https://github.com/your-username/mutual-fund-analytics.git
-```
 
 2. Open the Jupyter notebooks to review the data preparation and analysis.
 
@@ -264,9 +230,8 @@ git clone https://github.com/your-username/mutual-fund-analytics.git
 
 4. Open the `.pbix` file in Power BI Desktop to explore the interactive dashboard.
 
----
 
-# 📌 Future Improvements
+📌 Future Improvements
 
 * Integrate live AMFI mutual fund data using APIs.
 * Add historical NAV trend analysis.
@@ -274,10 +239,9 @@ git clone https://github.com/your-username/mutual-fund-analytics.git
 * Build investor-focused performance metrics.
 * Publish the dashboard to Power BI Service for online access.
 
----
 
-# 👩‍💻 Author
+👩‍💻 Author
 
-**Shreya Kumari**
+Shreya Kumari
 
-## ⭐ If you like this project, don't forget to star the repository!
+⭐ If you like this project, don't forget to star the repository!
