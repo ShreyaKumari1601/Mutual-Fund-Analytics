@@ -43,30 +43,35 @@ Advanced SQL Analysis
 Power BI Dashboard
 
 
-📂 Project Structure
+## 📂 Project Structure
 
+```text
 Mutual-Fund-Analytics/
 │
-├── Data/
-│   ├── cleaned_mutual_funds_data.csv
+├── data_raw/
+│   └── mutual_funds_data.csv
 │
-├── Jupyter Notebooks/
+├── data_cleaned/
+│   └── cleaned_mutual_funds_data.csv
+│
+├── notebooks/
 │   ├── 01_Data_Understanding.ipynb
 │   ├── 02_ETL_and_Data_Cleaning.ipynb
 │   ├── 03_Exploratory_Data_Analysis.ipynb
-│   ├── 04_Feature_Engineering.ipynb
+│   └── 04_Feature_Engineering.ipynb
 │
-├── SQL/
+├── sql_queries/
 │   ├── 01_database_setup.sql
 │   ├── 02_data_validation.sql
 │   ├── 03_business_analysis.sql
-│   ├── 04_advanced_analysis.sql
+│   └── 04_advanced_analysis.sql
 │
 ├── Power BI/
 │   ├── Mutual_Fund_Analytics.pbix
-│   ├── Mutual_Fund_Analytics_Dashboard.png
+│   └── Mutual_Fund_Analytics_Dashboard.png
 │
 └── README.md
+```
 
 
  📚 Technologies Used
