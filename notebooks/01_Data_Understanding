@@ -1,0 +1,598 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "5e05f17c-153b-4f29-ae1d-216d115d10a0",
+   "metadata": {},
+   "source": [
+    "# Mutual Fund Analytics Dashboard\n",
+    "\n",
+    "## Notebook 1: Data Understanding\n",
+    "\n",
+    "### Objective\n",
+    "The objective of this notebook is to understand the structure and quality of the mutual fund dataset before performing data cleaning, feature engineering, SQL analysis, and visualization.\n",
+    "\n",
+    "### Business Goal\n",
+    "To understand the available data so that meaningful business insights can be generated regarding mutual fund performance, fund houses (AMCs), and scheme categories."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "73459983-b9fb-4802-964e-d44e8d0cfee4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "fa690f1b-e166-4fab-b3a7-fd1b10a74957",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Current folder: C:\\Users\\shrey\\OneDrive\\Desktop\\Mutual Fund Analytics\\notebooks\n",
+      "CSV exists: True\n"
+     ]
+    }
+   ],
+   "source": [
+    "import os\n",
+    "\n",
+    "print(\"Current folder:\", os.getcwd())\n",
+    "print(\"CSV exists:\", os.path.exists(\"../data_raw/mutual_funds_data.csv\"))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "3ca07c3d-27af-480f-865c-bc90a9de903d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = pd.read_csv(\"../data_raw/mutual_funds_data.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "25555543-ba7f-4c0b-94ed-7729486e3be2",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>scheme_code</th>\n",
+       "      <th>scheme_name</th>\n",
+       "      <th>fund_house</th>\n",
+       "      <th>scheme_type</th>\n",
+       "      <th>scheme_category</th>\n",
+       "      <th>net_asset_value</th>\n",
+       "      <th>date</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>100027</td>\n",
+       "      <td>Grindlays Super Saver Income Fund-GSSIF-Half Y...</td>\n",
+       "      <td>Standard Chartered Mutual Fund</td>\n",
+       "      <td>Open Ended Schemes</td>\n",
+       "      <td>Income</td>\n",
+       "      <td>10.7205</td>\n",
+       "      <td>29-05-2008</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>100028</td>\n",
+       "      <td>Grindlays Super Saver Income Fund-GSSIF-Quater...</td>\n",
+       "      <td>Standard Chartered Mutual Fund</td>\n",
+       "      <td>Open Ended Schemes</td>\n",
+       "      <td>Income</td>\n",
+       "      <td>10.6191</td>\n",
+       "      <td>29-05-2008</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>100029</td>\n",
+       "      <td>Grindlays Super Saver Income Fund-GSSIF-Growth</td>\n",
+       "      <td>Standard Chartered Mutual Fund</td>\n",
+       "      <td>Open Ended Schemes</td>\n",
+       "      <td>Income</td>\n",
+       "      <td>18.9736</td>\n",
+       "      <td>29-05-2008</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>100030</td>\n",
+       "      <td>Grindlays Super Saver Income Fund-GSSIF-Annual...</td>\n",
+       "      <td>Standard Chartered Mutual Fund</td>\n",
+       "      <td>Open Ended Schemes</td>\n",
+       "      <td>Income</td>\n",
+       "      <td>10.7115</td>\n",
+       "      <td>29-05-2008</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>100031</td>\n",
+       "      <td>Grindlays Super Saver Income Fund-GSSIF - ST-D...</td>\n",
+       "      <td>Standard Chartered Mutual Fund</td>\n",
+       "      <td>Open Ended Schemes</td>\n",
+       "      <td>Income</td>\n",
+       "      <td>10.1053</td>\n",
+       "      <td>29-05-2008</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   scheme_code                                        scheme_name  \\\n",
+       "0       100027  Grindlays Super Saver Income Fund-GSSIF-Half Y...   \n",
+       "1       100028  Grindlays Super Saver Income Fund-GSSIF-Quater...   \n",
+       "2       100029     Grindlays Super Saver Income Fund-GSSIF-Growth   \n",
+       "3       100030  Grindlays Super Saver Income Fund-GSSIF-Annual...   \n",
+       "4       100031  Grindlays Super Saver Income Fund-GSSIF - ST-D...   \n",
+       "\n",
+       "                       fund_house         scheme_type scheme_category  \\\n",
+       "0  Standard Chartered Mutual Fund  Open Ended Schemes          Income   \n",
+       "1  Standard Chartered Mutual Fund  Open Ended Schemes          Income   \n",
+       "2  Standard Chartered Mutual Fund  Open Ended Schemes          Income   \n",
+       "3  Standard Chartered Mutual Fund  Open Ended Schemes          Income   \n",
+       "4  Standard Chartered Mutual Fund  Open Ended Schemes          Income   \n",
+       "\n",
+       "   net_asset_value        date  \n",
+       "0          10.7205  29-05-2008  \n",
+       "1          10.6191  29-05-2008  \n",
+       "2          18.9736  29-05-2008  \n",
+       "3          10.7115  29-05-2008  \n",
+       "4          10.1053  29-05-2008  "
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "624cbe31-41f2-4a85-b6fa-89d948a6c665",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Number of Rows : 35559\n",
+      "Number of Columns : 7\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Number of Rows :\", df.shape[0])\n",
+    "print(\"Number of Columns :\", df.shape[1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "b0e4ad0e-865c-4697-ba53-3369419075c1",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Index(['scheme_code', 'scheme_name', 'fund_house', 'scheme_type',\n",
+       "       'scheme_category', 'net_asset_value', 'date'],\n",
+       "      dtype='str')"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "3b22af9a-cf3c-402e-8990-a1ddcbcd5749",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.DataFrame'>\n",
+      "RangeIndex: 35559 entries, 0 to 35558\n",
+      "Data columns (total 7 columns):\n",
+      " #   Column           Non-Null Count  Dtype  \n",
+      "---  ------           --------------  -----  \n",
+      " 0   scheme_code      35559 non-null  int64  \n",
+      " 1   scheme_name      35559 non-null  str    \n",
+      " 2   fund_house       35559 non-null  str    \n",
+      " 3   scheme_type      35559 non-null  str    \n",
+      " 4   scheme_category  35559 non-null  str    \n",
+      " 5   net_asset_value  35559 non-null  float64\n",
+      " 6   date             35559 non-null  str    \n",
+      "dtypes: float64(1), int64(1), str(5)\n",
+      "memory usage: 6.3 MB\n"
+     ]
+    }
+   ],
+   "source": [
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "3a78fc17-d8eb-417e-af33-3ea735819e60",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "scheme_code          int64\n",
+       "scheme_name            str\n",
+       "fund_house             str\n",
+       "scheme_type            str\n",
+       "scheme_category        str\n",
+       "net_asset_value    float64\n",
+       "date                   str\n",
+       "dtype: object"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.dtypes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "b33bf59d-bc0c-4f3b-9764-92833c86c7b5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>scheme_code</th>\n",
+       "      <th>net_asset_value</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>35559.000000</td>\n",
+       "      <td>3.555900e+04</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>125432.488878</td>\n",
+       "      <td>7.577865e+02</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>15129.868753</td>\n",
+       "      <td>3.184542e+04</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>100027.000000</td>\n",
+       "      <td>0.000000e+00</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>112196.500000</td>\n",
+       "      <td>1.000000e+01</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>123761.000000</td>\n",
+       "      <td>1.102790e+01</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>139850.500000</td>\n",
+       "      <td>1.335550e+01</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>152155.000000</td>\n",
+       "      <td>2.102569e+06</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "         scheme_code  net_asset_value\n",
+       "count   35559.000000     3.555900e+04\n",
+       "mean   125432.488878     7.577865e+02\n",
+       "std     15129.868753     3.184542e+04\n",
+       "min    100027.000000     0.000000e+00\n",
+       "25%    112196.500000     1.000000e+01\n",
+       "50%    123761.000000     1.102790e+01\n",
+       "75%    139850.500000     1.335550e+01\n",
+       "max    152155.000000     2.102569e+06"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "78e60a72-5eea-42b2-864b-89b59c6e6661",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method DataFrame.sum of        scheme_code  scheme_name  fund_house  scheme_type  scheme_category  \\\n",
+       "0            False        False       False        False            False   \n",
+       "1            False        False       False        False            False   \n",
+       "2            False        False       False        False            False   \n",
+       "3            False        False       False        False            False   \n",
+       "4            False        False       False        False            False   \n",
+       "...            ...          ...         ...          ...              ...   \n",
+       "35554        False        False       False        False            False   \n",
+       "35555        False        False       False        False            False   \n",
+       "35556        False        False       False        False            False   \n",
+       "35557        False        False       False        False            False   \n",
+       "35558        False        False       False        False            False   \n",
+       "\n",
+       "       net_asset_value   date  \n",
+       "0                False  False  \n",
+       "1                False  False  \n",
+       "2                False  False  \n",
+       "3                False  False  \n",
+       "4                False  False  \n",
+       "...                ...    ...  \n",
+       "35554            False  False  \n",
+       "35555            False  False  \n",
+       "35556            False  False  \n",
+       "35557            False  False  \n",
+       "35558            False  False  \n",
+       "\n",
+       "[35559 rows x 7 columns]>"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "id": "1e74ec9a-cf3a-42c2-bbee-eb540f62cc57",
+   "metadata": {},
+   "source": [
+    "print(\"duplicate rows:\",df.duplicated().sum())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "246b81b0-fd71-4ce7-bd00-b07fd43999d7",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Unique Fund Houses (AMCs): 71\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Unique Fund Houses (AMCs):\", df[\"fund_house\"].nunique())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "b82cd8c2-5ded-46d9-8d70-9f29299deb0d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Unique Scheme Categories: 83\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Unique Scheme Categories:\", df[\"scheme_category\"].nunique())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "d990ff39-697f-49f0-9e82-d120964748a7",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Unique Scheme Types: 77\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Unique Scheme Types:\", df[\"scheme_type\"].nunique())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "7363ebac-cb15-43d7-b3ea-1e40b54b6ab8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<ArrowStringArray>\n",
+       "[   'Standard Chartered Mutual Fund', 'Aditya Birla Sun Life Mutual Fund',\n",
+       "                'Baroda Mutual Fund',        'Baroda Pioneer Mutual Fund',\n",
+       "                   'DSP Mutual Fund',                  'HDFC Mutual Fund',\n",
+       "             'PRINCIPAL Mutual Fund',             'Principal Mutual Fund',\n",
+       "                 'quant Mutual Fund',                   'ING Mutual Fund']\n",
+       "Length: 10, dtype: str"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"fund_house\"].unique()[:10]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "8b19b65f-3cd5-4400-80a7-4a28fbded057",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<ArrowStringArray>\n",
+       "[                                                        'Income',\n",
+       "                           'Equity Scheme - Large & Mid Cap Fund',\n",
+       "                     'Debt Scheme - Medium to Long Duration Fund',\n",
+       "                             'Formerly Known as IIFL Mutual Fund',\n",
+       "                                        'Debt Scheme - Gilt Fund',\n",
+       "                                           'Equity Scheme - ELSS',\n",
+       "                             'Debt Scheme - Medium Duration Fund',\n",
+       "                         'Hybrid Scheme - Aggressive Hybrid Fund',\n",
+       "                                'Debt Scheme - Money Market Fund',\n",
+       " 'Hybrid Scheme - Dynamic Asset Allocation or Balanced Advantage']\n",
+       "Length: 10, dtype: str"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"scheme_category\"].unique()[:10]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5d752b62-c6f8-4816-a276-b0abca999312",
+   "metadata": {},
+   "source": [
+    "## Initial Observations\n",
+    "\n",
+    "- The dataset contains approximately 35,000+ records.\n",
+    "- The dataset has 7 columns.\n",
+    "- No missing values were observed.\n",
+    "- The dataset includes multiple fund houses (AMCs).\n",
+    "- The dataset includes multiple scheme categories.\n",
+    "- The `date` column is currently stored as text and will be converted into datetime during preprocessing.\n",
+    "- The `net_asset_value` column will be used for fund performance analysis."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2c364099-aa56-47b5-b8b1-b13254f4f4a5",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
